@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAMEED TABAN - Professional Portfolio</title>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --text: #f8fafc;
+            --muted: #94a3b8;
+            --primary: #2563eb;
+            --accent: #06b6d4;
+            --border: rgba(255, 255, 255, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        [data-theme="light"] {
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #0f172a;
+            --muted: #64748b;
+            --border: rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: var(--transition);
+            overflow-x: hidden;
+        }
+
+        /* Header Navigation */
+        header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text);
+            cursor: pointer;
+        }
+
+        .logo span { color: var(--primary); }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 0.5rem;
+        }
+
+        .nav-links button {
+            background: none;
+            border: 1px solid transparent;
+            color: var(--muted);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+        }
+
+        .nav-links button.active, .nav-links button:hover {
+            color: #ffffff;
+            background: var(--primary);
+        }
+
+        .theme-btn {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.4rem;
+            cursor: pointer;
+        }
+
+        /* Main View */
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            width: 100%;
+        }
+
+        .page-view {
+            display: none;
+            width: 100%;
+            max-width: 1000px;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .page-view.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hero Grid Section */
+        .hero-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .hero-text { flex: 1; }
+
+        .hero-text h1 {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .hero-text h1 span {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-text h3 {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: clamp(1rem, 2vw, 1.3rem);
+        }
+
+        .hero-text p {
+            color: var(--muted);
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .social-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: var(--card);
+            border: 1px solid var(--border);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+
+        .social-icon:hover {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* Profile Image Styles - Fixed Overflow & Alt Text Position */
+        .profile-img-box {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            border: 3px solid var(--primary);
+            padding: 4px;
+            background: var(--card);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            flex-shrink: 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            display: block;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-outline { border: 1px solid var(--border); color: var(--text); background: transparent; }
+
+        /* Flexible Cards */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+
+        .card {
+            background: var(--card);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .card-subtitle {
+            color: var(--primary);
+            font-size: 0.88rem;
+            font-weight: 500;
+            margin-bottom: 0.8rem;
+        }
+
+        .card p, .card ul { color: var(--muted); font-size: 0.92rem; }
+        .card ul { padding-left: 1.2rem; }
+
+        /* Tables */
+        .table-responsive {
+            overflow-x: auto;
+            margin-top: 1rem;
+            border-radius: 8px;
+        }
+
+        .custom-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--card);
+            min-width: 480px;
+        }
+
+        .custom-table th, .custom-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+        }
+
+        .custom-table th {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+        }
+
+        /* Contact Section */
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            align-items: start;
+        }
+
+        .contact-info, .form-container {
+            background: var(--card);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .contact-item i {
+            font-size: 1.3rem;
+            color: var(--primary);
+        }
+
+        .contact-item div p {
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        .contact-item div a, .contact-item div span {
+            font-weight: 600;
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.9rem;
+            word-break: break-all;
+        }
+
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; margin-bottom: 0.3rem; font-size: 0.85rem; }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.7rem;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            color: var(--text);
+            outline: none;
+        }
+
+        .status-msg { margin-top: 1rem; color: #10b981; text-align: center; display: none; }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 850px) {
+            .mobile-toggle { display: block; }
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--card);
+                flex-direction: column;
+                padding: 1rem;
+                border-bottom: 1px solid var(--border);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            }
+            .nav-links.show { display: flex; }
+            .nav-links button { width: 100%; text-align: left; padding: 0.6rem 1rem; }
+            .hero-container { flex-direction: column-reverse; text-align: center; }
+            .social-links, .btn-group { justify-content: center; }
+            .btn { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <nav class="navbar">
+            <div class="logo" onclick="switchPage('home')">HAMEED <span>TABAN</span></div>
+            <div class="nav-right">
+                <button class="mobile-toggle" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
+                <ul class="nav-links" id="navLinks">
+                    <li><button id="nav-home" class="active" onclick="switchPage('home')">Home</button></li>
+                    <li><button id="nav-experience" onclick="switchPage('experience')">Experience</button></li>
+                    <li><button id="nav-skills" onclick="switchPage('skills')">Skills</button></li>
+                    <li><button id="nav-education" onclick="switchPage('education')">Education</button></li>
+                    <li><button id="nav-contact" onclick="switchPage('contact')">Contact</button></li>
+                </ul>
+                <button class="theme-btn" id="themeBtn" onclick="toggleTheme()"><i class="fa-solid fa-moon"></i></button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        
+        <!-- 1. HOME VIEW -->
+        <section id="page-home" class="page-view active">
+            <div class="hero-container">
+                <div class="hero-text">
+                    <h1>Hi, I'm <span>HAMEED TABAN</span></h1>
+                    <h3>Journalism Graduate & Professional Educator</h3>
+                    <p>I am willing to give total support to the organization with my experience and capability in order to achieve organizational goals and create mutual benefits.</p>
+                    
+                    <div class="social-links">
+                        <a href="https://wa.me/93777666906" target="_blank" class="social-icon" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="https://facebook.com" target="_blank" class="social-icon" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="tel:0093777666906" class="social-icon" title="Phone Call"><i class="fa-solid fa-phone"></i></a>
+                        <a href="mailto:tabanhameed820@gmail.com" class="social-icon" title="Email"><i class="fa-solid fa-envelope"></i></a>
+                    </div>
+
+                    <div class="btn-group">
+                        <button class="btn btn-primary" onclick="switchPage('contact')">Contact Me <i class="fa-solid fa-paper-plane"></i></button>
+                        <button class="btn btn-outline" onclick="switchPage('experience')">View Work</button>
+                    </div>
+                </div>
+                
+                <div class="profile-img-box">
+                    <img src="C:\Users\NASER\OneDrive\Desktop\Hameed/khan.jpg" alt="Profile">
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. EXPERIENCE VIEW -->
+        <section id="page-experience" class="page-view">
+            <h2 style="text-align: center;">Professional Experience</h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-title">Teacher</div>
+                    <div class="card-subtitle">Zalmai Sanjani Educational Center | April 2024 – July 2025 (Part Time)</div>
+                    <ul>
+                        <li>Advising students on career issues and developing computer lesson plans.</li>
+                        <li>Organizing and delivering classroom lectures, handouts, and coursework materials.</li>
+                        <li>Creating a vibrant teaching atmosphere and evaluating student assignments.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-title">Teacher</div>
+                    <div class="card-subtitle">Rood High School | April 2020 – March 2022</div>
+                    <ul>
+                        <li>Classroom management and maintaining student discipline.</li>
+                        <li>Delivering structured educational materials aligned with national standards.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. SKILLS VIEW -->
+        <section id="page-skills" class="page-view">
+            <h2 style="text-align: center;">Skills & Language Proficiency</h2>
+            
+            <div class="card" style="margin-top: 1.2rem;">
+                <div class="card-title"><i class="fa-solid fa-desktop" style="color: var(--primary);"></i> Computer Skills</div>
+                <p>Windows Installation & Partitioning | Microsoft Office Packages (Word, Excel, PowerPoint)</p>
+            </div>
+
+            <div class="card" style="margin-top: 1.2rem;">
+                <div class="card-title"><i class="fa-solid fa-language" style="color: var(--primary);"></i> Language Proficiency</div>
+                <div class="table-responsive">
+                    <table class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>Language</th>
+                                <th>Read</th>
+                                <th>Write</th>
+                                <th>Speak</th>
+                                <th>Understand</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>English</td>
+                                <td>Good</td>
+                                <td>Good</td>
+                                <td>Good</td>
+                                <td>Good</td>
+                            </tr>
+                            <tr>
+                                <td>Dari</td>
+                                <td>Excellent</td>
+                                <td>Excellent</td>
+                                <td>Excellent</td>
+                                <td>Excellent</td>
+                            </tr>
+                            <tr>
+                                <td>Pashto</td>
+                                <td>Excellent</td>
+                                <td>Excellent</td>
+                                <td>Excellent</td>
+                                <td>Excellent</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. EDUCATION VIEW -->
+        <section id="page-education" class="page-view">
+            <h2 style="text-align: center;">Education & Background</h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-title">Degree in Journalism</div>
+                    <div class="card-subtitle">Paktiya University</div>
+                    <p>Successfully graduated with a specialization in media, communication, and journalism.</p>
+                </div>
+                <div class="card">
+                    <div class="card-title">High School Graduation</div>
+                    <div class="card-subtitle">Ahmadkhil High School</div>
+                    <p>Completed general high school education diploma.</p>
+                </div>
+            </div>
+            
+            <div class="card" style="margin-top: 1.2rem;">
+                <div class="card-title">Personal Details & Professional Abilities</div>
+                <p><strong>Father's Name:</strong> Miram "Ayoubi" | <strong>DOB:</strong> 2000/09/26 | <strong>Status:</strong> Married | <strong>Nationality:</strong> Afghan</p>
+                <p style="margin-top: 0.5rem;"><strong>Abilities:</strong> Ability to work in stressful environments, long hours, and travel internationally.</p>
+            </div>
+        </section>
+
+        <!-- 5. CONTACT VIEW -->
+        <section id="page-contact" class="page-view">
+            <div class="contact-wrapper">
+                
+                <div class="contact-info">
+                    <h3 style="margin-bottom: 1rem;">Direct Contact</h3>
+                    <div class="contact-item">
+                        <i class="fa-brands fa-whatsapp"></i>
+                        <div>
+                            <p>WhatsApp & Phone</p>
+                            <a href="https://wa.me/93777666906" target="_blank">+93 777 666 906</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fa-brands fa-facebook-f"></i>
+                        <div>
+                            <p>Facebook Profile</p>
+                            <a href="https://facebook.com" target="_blank">Hameed Taban</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fa-solid fa-envelope"></i>
+                        <div>
+                            <p>Email Address</p>
+                            <a href="mailto:tabanhameed820@gmail.com">tabanhameed820@gmail.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <div>
+                            <p>Address</p>
+                            <span>Kabul, Afghanistan</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <h3 style="margin-bottom: 1rem;">Send Message</h3>
+                    <form id="contactForm" onsubmit="handleContact(event)">
+                        <div class="form-group">
+                            <label>Your Name</label>
+                            <input type="text" required placeholder="John Doe">
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" required placeholder="john@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Message Details</label>
+                            <textarea rows="3" required placeholder="Write your message..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                    </form>
+                    <div id="statusMsg" class="status-msg">Thank you! Your message has been submitted.</div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>&copy; 2026 HAMEED TABAN. All rights reserved.</footer>
+
+    <script>
+        function switchPage(pageId) {
+            document.querySelectorAll('.page-view').forEach(page => page.classList.remove('active'));
+            document.querySelectorAll('.nav-links button').forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(`page-${pageId}`).classList.add('active');
+            const activeNav = document.getElementById(`nav-${pageId}`);
+            if (activeNav) activeNav.classList.add('active');
+
+            document.getElementById('navLinks').classList.remove('show');
+        }
+
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('show');
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            const themeBtn = document.getElementById('themeBtn');
+            if (body.getAttribute('data-theme') === 'light') {
+                body.removeAttribute('data-theme');
+                themeBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
+            } else {
+                body.setAttribute('data-theme', 'light');
+                themeBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
+            }
+        }
+
+        function handleContact(e) {
+            e.preventDefault();
+            const status = document.getElementById('statusMsg');
+            status.style.display = 'block';
+            document.getElementById('contactForm').reset();
+            setTimeout(() => { status.style.display = 'none'; }, 3000);
+        }
+    </script>
+</body>
+</html>
